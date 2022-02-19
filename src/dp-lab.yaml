@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dp-mainui
+  annotations:
+    kubernetes.io/change-cause: version 2.2
+spec:
+  # modify replicas according to your case
+  replicas: 3
+  selector:
+    matchLabels:
+      name: apache
+      app: main
+      rel: stable
+  template:
+    metadata:
+      labels:
+        name: apache
+        app: main
+        rel: stable
+    spec:
+      containers:
+        - name: httpd-container
+          image: httpd:2.2
