@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: DemonSet
+metadata:
+  name: ds-mainui
+spec:
+  selector:
+    matchLabels:
+      name: apache
+      app: main
+      rel: stable
+  template:
+    metadata:
+      labels:
+        name: apache
+        app: main
+        rel: stable
+    spec:
+      containers:
+        - name: httpd-container
+          image: httpd:2.2
