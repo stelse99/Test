@@ -1,8 +1,13 @@
 apiVersion: apps/v1
-kind: DaemonSet
+kind: StatefulSet
 metadata:
-  name: ds-mainui
+  name: ss-mainui
 spec:
+  # modify replicas according to your case
+  replicas: 3
+  serviceName: ss-service
+#  podManagementPolicy: OrderedReady
+  podManagementPolicy: Parallel
   selector:
     matchLabels:
       name: apache
@@ -10,7 +15,6 @@ spec:
       rel: stable
   template:
     metadata:
-      name: apache-pod
       labels:
         name: apache
         app: main
