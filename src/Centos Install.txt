@@ -1,0 +1,60 @@
+############################
+## centos 다운로드후 설치
+############################
+## Software Selection
+   Minimal Install-GUI 실행안된다.
+   GNOME Desktop-요걸로 설치 해라.
+## Installation Destination
+   클릭후 done 하면 자동으로 인식된다.
+## Network & Host Name
+   ethernet(enp0s3) ON
+   Host name 수정
+      docker-centos.example.com
+   configure...
+      Ipv4 Settings
+          Method: Manual
+          Addresses:
+               Address          NetMask      Gateway
+               10.100.0.106     24           10.100.0.1
+               DNS Servers:
+               10.100.0.1
+
+## ROOT PASSWORD
+   root/password  --weak 라고 뜨면 한번더 click.
+## USER CREATION
+   guru/work
+## License 동의
+
+
+## KVM 중지 작업
+가상머신안에 또 하이퍼바이져가 생긴다(virbro). 따라서 삭제를 해줘야 한다.
+systemctl stop libvirtd              --이번 한번만 stop 한다.
+systemctl disable libvirtd.service   --다음번에 동작 안하게 한다.
+
+
+## tree 설치
+   우분투와 달리 vim, curl, ssh 모두 install 시에 적용 되어 있다.
+   yum install -y tree
+
+############################
+# sudoer 에 계정 추가 하기.
+############################
+centos 에서는 guru 는 sudo 명령 사용 못한다.
+
+
+############################
+# docker 관리자 권한 할당 방법.
+############################
+su - root
+usermod -a -G docker guru
+
+su - guru
+docker ps
+
+
+############################
+# booting 시에  docker enable
+# 안되는경우 해결
+############################
+systemctl status docker
+systemctl enable docker

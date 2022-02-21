@@ -1,0 +1,27 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cjc-centos
+spec:
+  schedule: "* * * * *"
+  startingDeadlineSeconds: 300
+  # concurrencyPolicy: Allow
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      # completions: 5
+      # parallelism: 2
+      # ActiveDeadlineSeconds: 5
+      template:
+        spec:
+          containers:
+            - name: hello
+              image: busybox
+              args:
+                - /bin/sh
+                - -c
+                - echo Hello; sleep 10; echo Bye
+          # restartPolicy: OnFilure
+          restartPolicy: Never
+          # backoffLimit: 6
+

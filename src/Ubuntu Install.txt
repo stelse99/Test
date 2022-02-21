@@ -1,0 +1,100 @@
+############################
+## Ubuntu 20.04 다운로드후 설치
+############################
+# 언어선택(한국어)-Ubuntu 설치-키보드선택-일반설치-새로만든디스크지우고설치-
+  지금포멧-포멧-계속설치-타임존설정-관리자계정생성:guru/work-설치진행 20분 정도.
+############################
+## 설치후 환경설정
+############################
+#GUI 로그인: guru/work
+#서버구성: 네트웍설정
+  IP 구성:
+    설정->네트웍->Ipv4->수동
+    주소:10.100.0.105  네트마스크:24  게이트웨이: 10.100.0.1
+    네임서버(DNS): 10.100.0.1
+    개인정보 화면잠금
+    시간및날짜
+    화면사이즈 및 해상도
+  설치 확인:
+    guru@docker-ubuntu:~$
+    ip addr
+    hostname
+    cat /etc/os-release
+    free -h
+    df -h
+    du -h   --서브이렉토리 디스크 확인. 자세히
+    du -sh  --서브이렉토리 디스크 확인. 간략히
+    uname -r
+    cut -f1 -d: /etc/passwd  --모든 유져 확인.
+
+  hostname 변경:
+    sudo vi /etc/hostname  수정
+    docker-ubuntu.example.com
+  /etc/hosts 변경:
+    sudo vi /etc/hosts  수정
+     10.100.0.105 docker-ubuntu.example.com docker-ubuntu
+    10.100.0.106 docker-centos example.com docker-centos
+    ping -c 2 8.8.8.8
+
+# Text 모드로 부팅 수정:
+  부팅시 리소스 이득을 위함.
+  ubuntu 는 원래 GUI 모드로 부팅 하도록 되어 있다.
+  systemctl set-default multi-user.target
+  systemctl set-default graphical.target
+  systemctl isolate multi-user.target
+  systemctl isolate graphical.target
+
+# root 로 계정 전환
+  반드시 passwd 를 설정해야 한다.
+  sudo passwd root
+  su - root
+# SSH 서버 설치후 운영
+
+
+# X-Shell 로 로그인 구성
+apt-get update
+apt-get install -y openssh-server curl vim tree
+systemctl status sshd
+ssh guru@localhost
+  fingerprint ? yes
+
+
+# XShell 설치.
+  파일-환경설정-네트워크-포트포워딩(P)
+     네트워크이름(N): LocalNetwork
+     네트워크 CIDR(C):10.100.0.0/24
+       네트워크옵션: DHCP 지원(D)
+     포트포워딩(P)
+       Ipv4
+          이름      프로토콜  호스트 IP    호스트 포트   게스트 IP       게스트 포트
+          docker1    TCP    127.0.0.1  105         10.100.0.105   22
+          docker1    TCP    127.0.0.1  106         10.100.0.106   22
+fort dorwarding 을 setup 시에 진행 했기 때문에
+해당하는 ip 와 port 를 사용 해야 한다.
+
+
+
+
+############################
+# sudoer 에 계정 추가 하기.
+############################
+visudo -f /etc/sudoer
+   root  ALL=(ALL:ALL) ALL
+   guru  ALL=(ALL:ALL) ALL
+
+
+############################
+# docker 관리자 권한 할당 방법.
+############################
+su - root
+usermod -a -G docker guru
+
+su - guru
+docker ps
+
+
+############################
+# booting 시에  docker enable
+# 안되는경우 해결
+############################
+우분투는 기본으로 되어있다.
