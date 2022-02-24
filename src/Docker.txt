@@ -102,13 +102,18 @@ docker run -e TZ=Asia/Seoul
 # Springboot && MySql 연동 구현.
 ############################
 docker run -dp 3336:3306 --name mysqldb -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=mydb mysql
+docker run -dp 3336:3306 --name mysqldb --env-file envmysql mysql
+# volume Test
 docker run -dp 3336:3306 --name mysqldb --env-file envmysql -v "/home/desktp/db":/var/lib/mysql mysql
+
 docker network create spring-net
 docker network connect spring-net mysqldb
 docker network ls
 docker network inspect spring-net
+
 docker run -dp 9090:8080 --name app --net spring-net -e MYSQL_HOST=mysqldb -e MYSQL_USER=root -e MYSQL_PASSWORD=root -e MYSQL_PORT=3306 stelse99/app
 docker run -dp 9090:8080 --name app --net spring-net --env-file envapp stelse99/app
+
 docker logs app
 
 

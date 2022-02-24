@@ -28,7 +28,32 @@ settings -> Resources -> WSL Integration
 토글버튼을 활성화 한다.
 
 
+
 ############################
 ## Install Docker,
 ############################
 # VBOX Ubuntu 에서 처럼 모든걸 install 한다.
+
+
+############################
+# SSH 서버 설치후 운영
+# X-Shell 로 로그인 구성
+############################
+apt-get update
+apt-get install -y openssh-server curl vim tree
+##
+## openssh-server 오류 발생되어 다시 재설치함.
+##
+apt remove openssh-server
+apt install openssh-server
+vi /etc/ssh/sshd_config
+   Port: 2222     -- windows 와 충돌 발생 됨으로 변경을 해야만 한다. 반드시
+   PasswordAuthentication: yes
+/etc/init.d/ssh restart
+netstat -antp |grep :22*
+
+# ip 확인
+ifconfig
+
+X-Shell 접속
+fingerprint ? yes
