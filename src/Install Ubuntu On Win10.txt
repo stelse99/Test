@@ -1,0 +1,34 @@
+############################
+## Ubuntu for Windows 설치.
+############################
+# Microsoft store
+  Ubuntu 20.04 검색후 download 후 설치.
+
+# CPU Hyper-V 가상화 기능 활성화.
+  요즘은 기본적으로 되어 있다.
+
+# WSL2(Windows Subsystem for Linux v.2) 을
+   install 및 upgrade.
+   https://docs.docker.com/
+
+# 기본적으로는 wsl 1 이 인스톨 된다.
+# 따라서 다음 명령으로 wsl 2 로 변경한다.
+C:\Users\stels>wsl --set-version Ubuntu-20.04 2
+
+C:\Users\stels>wsl --list --verbose
+  NAME                   STATE           VERSION
+* docker-desktop         Running         2
+  Ubuntu-20.04           Running         2
+  docker-desktop-data    Running         2
+
+# Docker Desktop 를 재실행한다.
+
+# 리눅스 배포판을 활성화.
+settings -> Resources -> WSL Integration
+토글버튼을 활성화 한다.
+
+
+############################
+## Install Docker,
+############################
+# VBOX Ubuntu 에서 처럼 모든걸 install 한다.

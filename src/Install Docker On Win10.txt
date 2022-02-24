@@ -12,6 +12,15 @@
    install 및 upgrade.
    https://docs.docker.com/
 
+C:\Users\stels>wsl -l -v
+C:\Users\stels>wsl --set-version Ubuntu-20.04 2
+C:\Users\stels>wsl --set-default-version 2
+C:\Users\stels>wsl --list --verbose
+  NAME                   STATE           VERSION
+* docker-desktop         Running         2
+  Ubuntu-20.04           Running         2
+  docker-desktop-data    Running         2
+
 ############################
 ## Docker 동작 상태 확인.
 ############################

@@ -48,9 +48,8 @@
   반드시 passwd 를 설정해야 한다.
   sudo passwd root
   su - root
+
 # SSH 서버 설치후 운영
-
-
 # X-Shell 로 로그인 구성
 apt-get update
 apt-get install -y openssh-server curl vim tree
@@ -76,9 +75,9 @@ fort dorwarding 을 setup 시에 진행 했기 때문에
 
 
 ############################
-# sudoer 에 계정 추가 하기.
+# sudoers 에 계정 추가 하기.
 ############################
-visudo -f /etc/sudoer
+visudo -f /etc/sudoers
    root  ALL=(ALL:ALL) ALL
    guru  ALL=(ALL:ALL) ALL
 
